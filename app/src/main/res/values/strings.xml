@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Fast Pipe</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_build_route">BuildRoute</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="action_example">Example action</string>
+    <string name="write_station">Enter First station</string>
+    <string name="buttom_send">Send</string>
+    <string name="build_route">Build Route</string>
+    <string name="write_next_staion">Enter Second Station</string>
+</resources>
