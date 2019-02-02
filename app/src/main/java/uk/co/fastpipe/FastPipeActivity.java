@@ -10,12 +10,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 import uk.co.fastpipe.models.TubeGraph;
@@ -63,41 +63,66 @@ public class FastPipeActivity extends AppCompatActivity
             for ( int i = 0; i < stations.length;i++){
                 spinnerArray.add(stations[i].getName());
             }
-            final Spinner spinner = findViewById(R.id.spinner3);
-            final Spinner spinner2 = findViewById(R.id.spinner);
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+
+            final Spinner spinner = findViewById(R.id.spinnerFirstStation);
+            final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
                     android.R.layout.simple_spinner_dropdown_item,
                     spinnerArray);
-            spinner.setAdapter(adapter);
-            spinner2.setAdapter(adapter);
+            spinner.setAdapter(adapter1);
+
+            final EditText editText = findViewById(R.id.editTextFirstSation);
+            editText.addTextChangedListener(new TextWatcher() {
+                boolean _ignore = false; // indicates if the change was made by the TextWatcher itself.
+                @Override
+                public void onTextChanged(CharSequence s, int start, int before, int count) {
+                    if (_ignore)
+                        return;
+                    _ignore = true; // prevent infinite loop
+
+                    adapter1.getFilter().filter(editText.getText().toString());
+
+                    _ignore = false; // release, so the TextWatcher start to listen again.
+                }            @Override
+                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+                }
+                @Override
+                public void afterTextChanged(Editable s) {
+
+                }
+            });
+
+            final Spinner spinner2 = findViewById(R.id.spinnerSecondStation);
+            final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    spinnerArray);
+            spinner2.setAdapter(adapter2);
+
+            //TODO add spinner2 code here
         }
         catch (IOException ex) {
 
         }
-        Button   mButton;
-        final EditText mEdit;
-
-        mButton = findViewById(R.id.button2);
-        mEdit   = findViewById(R.id.editText2);
-
-        mButton.setOnClickListener(
-                new View.OnClickListener()
-                {
-                    public void onClick(View view)
-                    {
-                        Log.v("EditText", mEdit.getText().toString());
-                    }
-                });
 
     }
 
     /** Called when the user taps the Send button */
     public void onBuildRouteClick(View view) {
         Intent intent = new Intent(this, BuildRoute.class);
-        EditText editText = findViewById(R.id.editText5);
+        EditText editText = findViewById(R.id.editTextFirstSation);
         String message = editText.getText().toString();
         intent.putExtra(EXTRA_MESSAGE, message);
         startActivity(intent);
+    }
+    public void onFirstStationClick(View view) {
+        EditText editText = findViewById(R.id.editTextFirstSation);
+        String station1 = editText.getText().toString();
+        final Spinner spinner = findViewById(R.id.spinnerFirstStation);
+    }
+    public void onSecondStationClick(View view) {
+        EditText editText = findViewById(R.id.editTextSecondStation);
+        String station2 = editText.getText().toString();
+
     }
 
     @Override
