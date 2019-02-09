@@ -1,13 +1,13 @@
 package uk.co.fastpipe.models;
 import com.opencsv.bean.CsvBindByName;
 
-public final class TubeConnections {
+public final class TubeConnection {
     @CsvBindByName private int station1;
     @CsvBindByName private int station2;
     @CsvBindByName private int line;
     @CsvBindByName private int time;
 
-    public TubeConnections(
+    public TubeConnection(
             int station1,
             int station2,
             int line,
@@ -16,6 +16,9 @@ public final class TubeConnections {
         this.station2 = station2;
         this.line = line;
         this.time = time;
+    }
+    public TubeConnection() {
+
     }
 
     public final int getStation1() {

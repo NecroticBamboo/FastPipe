@@ -5,6 +5,7 @@ public final class TubeLine {
     @CsvBindByName private int line = 0;
     @CsvBindByName private String name;
     @CsvBindByName private int colour = 0;
+    @CsvBindByName private String strip;
 
     public TubeLine(int line,
                     String name,
@@ -12,6 +13,9 @@ public final class TubeLine {
         this.line = line;
         this.name = name;
         this.colour = colour;
+    }
+    public TubeLine() {
+
     }
 
     public final int getLine() {
@@ -24,5 +28,9 @@ public final class TubeLine {
 
     public final int getColour() {
         return colour;
+    }
+
+    public final String getStrip() {
+        return strip;
     }
 }

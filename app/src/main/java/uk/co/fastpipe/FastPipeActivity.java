@@ -64,46 +64,49 @@ public class FastPipeActivity extends AppCompatActivity
                 spinnerArray.add(stations[i].getName());
             }
 
-            final Spinner spinner = findViewById(R.id.spinnerFirstStation);
-            final ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_dropdown_item,
-                    spinnerArray);
-            spinner.setAdapter(adapter1);
+            SetUpSinner(spinnerArray, R.id.spinnerFirstStation, R.id.editTextFirstSation);
 
-            final EditText editText = findViewById(R.id.editTextFirstSation);
-            editText.addTextChangedListener(new TextWatcher() {
-                boolean _ignore = false; // indicates if the change was made by the TextWatcher itself.
-                @Override
-                public void onTextChanged(CharSequence s, int start, int before, int count) {
-                    if (_ignore)
-                        return;
-                    _ignore = true; // prevent infinite loop
+            SetUpSinner(spinnerArray, R.id.spinnerSecondStation, R.id.editTextSecondStation);
 
-                    adapter1.getFilter().filter(editText.getText().toString());
-
-                    _ignore = false; // release, so the TextWatcher start to listen again.
-                }            @Override
-                public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-                }
-                @Override
-                public void afterTextChanged(Editable s) {
-
-                }
-            });
-
-            final Spinner spinner2 = findViewById(R.id.spinnerSecondStation);
-            final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(this,
-                    android.R.layout.simple_spinner_dropdown_item,
-                    spinnerArray);
-            spinner2.setAdapter(adapter2);
-
-            //TODO add spinner2 code here
         }
         catch (IOException ex) {
 
         }
 
+    }
+
+    private void SetUpSinner(ArrayList<String> spinnerArray, int spinnerSecondStation, int editTextSecondStation) {
+        final Spinner spinner = findViewById(spinnerSecondStation);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+                android.R.layout.simple_spinner_dropdown_item,
+                spinnerArray);
+        spinner.setAdapter(adapter);
+
+        final EditText editText2 = findViewById(editTextSecondStation);
+        editText2.addTextChangedListener(new TextWatcher() {
+            boolean _ignore = false; // indicates if the change was made by the TextWatcher itself.
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (_ignore)
+                    return;
+                _ignore = true; // prevent infinite loop
+
+                adapter.getFilter().filter(editText2.getText().toString());
+
+                _ignore = false; // release, so the TextWatcher start to listen again.
+            }
+
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
     }
 
     /** Called when the user taps the Send button */
