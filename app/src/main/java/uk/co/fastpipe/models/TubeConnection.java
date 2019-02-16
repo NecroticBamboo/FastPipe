@@ -12,8 +12,8 @@ public final class TubeConnection {
             int station2,
             int line,
             int time) {
-        this.station1 = station1;
-        this.station2 = station2;
+        this.station1 = station1;//need this for node
+        this.station2 = station2;//need this for node
         this.line = line;
         this.time = time;
     }

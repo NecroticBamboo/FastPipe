@@ -33,7 +33,7 @@ public final class TubeStation {
             double zone,
             int total_lines,
             boolean rail) {
-        this.id = id;
+        this.id = id; //need this for key
         this.latitude = latitude;
         this.longitude = longitude;
         this.name = name;
