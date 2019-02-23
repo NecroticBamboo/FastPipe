@@ -41,4 +41,13 @@ public class Node {
     public void setShortestPath(List<Node> shortestPath) {
         this.shortestPath = shortestPath;
     }
+
+    public String getName() {
+        return name;
+    }
+
+    public void clear() {
+        //setDistance(Integer.MAX_VALUE);
+        setShortestPath(new LinkedList<Node>());
+    }
 }

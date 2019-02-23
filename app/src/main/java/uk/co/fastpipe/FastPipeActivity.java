@@ -19,12 +19,14 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import uk.co.fastpipe.graph.Graph;
+import uk.co.fastpipe.graph.Node;
 import uk.co.fastpipe.models.TubeGraph;
 import uk.co.fastpipe.models.TubeReader;
 import uk.co.fastpipe.models.TubeStation;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 public class FastPipeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -123,9 +125,10 @@ public class FastPipeActivity extends AppCompatActivity
         String fistStation = first.getSelectedItem().toString();
         String secondStation = second.getSelectedItem().toString();
 
-        //TODO calculate route in background
         Graph nodeGraph = tube.genearteGraph();
-        //Graph.calculateShortestPathFromSource(nodeGraph)
+        nodeGraph.calculateShortestPathFromSource(fistStation);
+
+        List<Node> shortestPath = nodeGraph.getShortestpath(secondStation);
 
         //TODO pass route via intent
         intent.putExtra(FIRST_STATION, fistStation);
@@ -133,18 +136,6 @@ public class FastPipeActivity extends AppCompatActivity
 
         startActivity(intent);
     }
-/*
-    public void onFirstStationClick(View view) {
-        EditText editText = findViewById(R.id.editTextFirstSation);
-        String station1 = editText.getText().toString();
-        final Spinner spinner = findViewById(R.id.spinnerFirstStation);
-    }
-    public void onSecondStationClick(View view) {
-        EditText editText = findViewById(R.id.editTextSecondStation);
-        String station2 = editText.getText().toString();
-
-    }
-*/
 
     @Override
     public void onBackPressed() {

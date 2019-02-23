@@ -1,18 +1,27 @@
 package uk.co.fastpipe.graph;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Map;
-import java.util.Set;
+import java.util.*;
 
 public class Graph {
-    private Set<Node> nodes = new HashSet<>();
+    private HashMap<String, Node> nameToNode = new HashMap<String, Node>();
 
     public void addNode(Node nodeA) {
-        nodes.add(nodeA);
+        nameToNode.put(nodeA.getName(), nodeA);
     }
 
-    public static Graph calculateShortestPathFromSource(Graph graph, Node source) {
+    private Node getNode(String name){
+        return nameToNode.get(name);
+    }
+
+    public void calculateShortestPathFromSource(String source) {
+        calculateShortestPathFromSource(getNode(source));
+    }
+
+    /**
+     * https://www.baeldung.com/java-dijkstra
+     * */
+    private void calculateShortestPathFromSource(Node source) {
+        clear();
         source.setDistance(0);
 
         Set<Node> settledNodes = new HashSet<>();
@@ -33,8 +42,22 @@ public class Graph {
             }
             settledNodes.add(currentNode);
         }
-        return graph;
     }
+
+    private void clear() {
+        for (Node node: nameToNode.values()){
+            node.clear();
+        }
+    }
+
+    public List<Node> getShortestpath(String destination) {
+        return getShortestpath(getNode(destination));
+    }
+
+    private List<Node> getShortestpath(Node destination) {
+        return destination.getShortestPath();
+    }
+
     private static Node getLowestDistanceNode(Set < Node > unsettledNodes) {
         Node lowestDistanceNode = null;
         int lowestDistance = Integer.MAX_VALUE;
@@ -47,6 +70,7 @@ public class Graph {
         }
         return lowestDistanceNode;
     }
+
     private static void calculateMinimumDistance(Node evaluationNode,
                                                  Integer edgeWeigh, Node sourceNode) {
         Integer sourceDistance = sourceNode.getDistance();
