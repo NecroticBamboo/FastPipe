@@ -111,8 +111,30 @@ public class FastPipeActivity extends AppCompatActivity
         });
     }
 
-    public static String FIRST_STATION = "first_station";
+    public static String FIRST_STATION  = "first_station";
     public static String SECOND_STATION = "second_station";
+    public static String ROUTE_STRING   = "route_string";
+
+    /**
+     * Join stationID as String
+     * @param list
+     * @param conjunction
+     * @return
+     */
+    static public String join(List<Node> list, String conjunction)
+    {
+        StringBuilder sb = new StringBuilder();
+        boolean first = true;
+        for (Node item : list)
+        {
+            if (first)
+                first = false;
+            else
+                sb.append(conjunction);
+            sb.append(item.getStation().getId());
+        }
+        return sb.toString();
+    }
 
     /**
      * Called when the user taps the Send button
@@ -125,14 +147,15 @@ public class FastPipeActivity extends AppCompatActivity
         String fistStation = first.getSelectedItem().toString();
         String secondStation = second.getSelectedItem().toString();
 
-        Graph nodeGraph = tube.genearteGraph();
+        Graph nodeGraph = tube.generateGraph();
         nodeGraph.calculateShortestPathFromSource(fistStation);
 
-        List<Node> shortestPath = nodeGraph.getShortestpath(secondStation);
+        List<Node> commuteRoute = nodeGraph.getShortestPath(secondStation);
+        String routeStr = join(commuteRoute,",");
 
-        //TODO pass route via intent
         intent.putExtra(FIRST_STATION, fistStation);
         intent.putExtra(SECOND_STATION, secondStation);
+        intent.putExtra(ROUTE_STRING, routeStr);
 
         startActivity(intent);
     }

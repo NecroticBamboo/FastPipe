@@ -29,7 +29,7 @@ public class TubeGraph {
         return tubeLines;
     }
 
-    public final Graph genearteGraph() {
+    public final Graph generateGraph() {
 
         HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
 
@@ -37,7 +37,7 @@ public class TubeGraph {
         for (TubeStation station : getTubeStations()) {
             int stationsID;
             stationsID = station.getId();
-            nodes.put(stationsID, new Node(station.getName()));
+            nodes.put(stationsID, new Node(station));
         }
 
         // ---------------------------------------------------------- connect stations
@@ -49,8 +49,8 @@ public class TubeGraph {
             Node node1 = nodes.get(id1);
             Node node2 = nodes.get(id2);
 
-            node1.addDestination(node2, time);
-            node2.addDestination(node1, time);
+            node1.addDestination(node2, time); // forward path
+            node2.addDestination(node1, time); // return path
         }
 
         Graph result = new Graph();

@@ -33,8 +33,10 @@ public class Graph {
             Node currentNode = getLowestDistanceNode(unsettledNodes);
             unsettledNodes.remove(currentNode);
             for (Map.Entry < Node, Integer> adjacencyPair: currentNode.getAdjacentNodes().entrySet()) {
-                Node adjacentNode = adjacencyPair.getKey();
+
+                Node adjacentNode  = adjacencyPair.getKey();
                 Integer edgeWeight = adjacencyPair.getValue();
+
                 if (!settledNodes.contains(adjacentNode)) {
                     calculateMinimumDistance(adjacentNode, edgeWeight, currentNode);
                     unsettledNodes.add(adjacentNode);
@@ -50,11 +52,11 @@ public class Graph {
         }
     }
 
-    public List<Node> getShortestpath(String destination) {
-        return getShortestpath(getNode(destination));
+    public List<Node> getShortestPath(String destination) {
+        return getShortestPath(getNode(destination));
     }
 
-    private List<Node> getShortestpath(Node destination) {
+    private List<Node> getShortestPath(Node destination) {
         return destination.getShortestPath();
     }
 
