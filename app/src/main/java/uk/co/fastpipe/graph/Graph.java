@@ -13,8 +13,8 @@ public class Graph {
         return nameToNode.get(name);
     }
 
-    public void calculateShortestPathFromSource(String source) {
-        calculateShortestPathFromSource(getNode(source));
+    public void calculateShortestPathFromSource(String name) {
+        calculateShortestPathFromSource(getNode(name));
     }
 
     /**

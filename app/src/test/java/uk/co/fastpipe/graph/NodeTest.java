@@ -33,7 +33,7 @@ public class NodeTest {
     }
 
     @Test
-    public void addDestination2() {
+    public void addDestination1() {
      TubeStation t1= new TubeStation();
      TubeStation t2= new TubeStation();
      TubeStation t3= new TubeStation();
@@ -50,7 +50,30 @@ public class NodeTest {
      assertEquals(0,exp3.size());
     }
 
+    @Test
+    public void addDestination2() {
+        TubeStation t1= new TubeStation();
+        TubeStation t2= new TubeStation();
+        TubeStation t3= new TubeStation();
+        Node n = new Node(t1);
+        Node m = new Node(t2);
+        Node p = new Node(t3);
+        n.addDestination(m,1);
+        m.addDestination(p,2);
+        m.addDestination(n,1);
+        p.addDestination(m,2);
+        Map<Node, Integer> exp = m.getAdjacentNodes();
+        assertEquals(2,exp.size());
+    }
 
+    @Test
+    public void addDestination3() {
+        TubeStation t1= new TubeStation();
+        Node n = new Node(t1);
+        n.addDestination(n,0);
+        Map<Node, Integer> exp = n.getAdjacentNodes();
+        assertEquals(1,exp.size());
+    }
     @Test
     public void getDistance1() {
     TubeStation t1= new TubeStation();
@@ -118,6 +141,36 @@ public class NodeTest {
     }
 
     @Test
+    public void getShortestPath4() {
+        TubeStation t1= new TubeStation();
+        TubeStation t2= new TubeStation();
+        Node n= new Node(t1);
+        Node m= new Node(t2);
+        LinkedList<Node> list=new LinkedList<Node>();
+        list.push(m);
+        n.setShortestPath(list);
+        assertEquals(list,n.getShortestPath());
+    }
+
+    @Test
+    public void getShortestPath5() {
+        TubeStation t1= new TubeStation();
+        TubeStation t2= new TubeStation();
+        TubeStation t3= new TubeStation();
+        TubeStation t4= new TubeStation();
+        Node n= new Node(t1);
+        Node m= new Node(t2);
+        Node p= new Node(t3);
+        Node k= new Node(t4);
+        LinkedList<Node> list=new LinkedList<Node>();
+        list.push(m);
+        list.push(p);
+        list.push(k);
+        n.setShortestPath(list);
+        assertEquals(list,n.getShortestPath());
+    }
+
+    @Test
     public void getName1() {
         TubeStation t1 = new TubeStation(1,0,0,"Bank","Bank",1,1,false);
         Node n = new Node(t1);
@@ -132,6 +185,13 @@ public class NodeTest {
     }
 
     @Test
+    public void getName3() {
+        TubeStation t1 = new TubeStation(2,0,0,"Canada Water","Canada Water",1,1,false);
+        Node n = new Node(t1);
+        assertEquals("Canada Water",n.getName());
+    }
+
+    @Test
     public void clear() {
         TubeStation t1 = new TubeStation();
         Node n = new Node(t1);
@@ -139,4 +199,5 @@ public class NodeTest {
         assertEquals(Integer.MAX_VALUE,(int)n.getDistance());
         assertNotNull(n.getShortestPath());
     }
+
 }
