@@ -6,6 +6,7 @@ import com.opencsv.bean.CsvToBeanBuilder;
 import uk.co.fastpipe.R;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.Reader;
 import java.util.List;
@@ -17,23 +18,37 @@ public class TubeReader {
         TubeConnection[] connectionsArray;
         TubeLine[] linesArray;
 
-        stationsArray = readTubeStations(context);
-        connectionsArray = readTubeConnections(context);
-        //linesArray = readTubeLines(context);
-        linesArray = null;
-        //TODO read lines
+        stationsArray = readTubeStations(context.getResources().openRawResource(R.raw.london_stations));
+        connectionsArray = readTubeConnections(context.getResources().openRawResource(R.raw.london_connections));
+        //linesArray = readTubeLines(context.getResources().openRawResource(R.raw.london_lines));
+        linesArray = null;    //TODO read lines
 
         TubeGraph graph = new TubeGraph(stationsArray,connectionsArray,linesArray);
         return graph;
     }
-    private static TubeStation[] readTubeStations(Context context) throws IOException {
+
+    public static TubeGraph load(InputStream stations, InputStream connections, InputStream lines) throws IOException {
+
         TubeStation[] stationsArray;
-        try (Reader stationsReader= new InputStreamReader(context.getResources().openRawResource(R.raw.london_stations)) ) {
+        TubeConnection[] connectionsArray;
+        TubeLine[] linesArray;
+
+        stationsArray = readTubeStations(stations);
+        connectionsArray = readTubeConnections(connections);
+        //linesArray = readTubeLines(lines);
+        linesArray = null; //TODO read lines
+
+        TubeGraph graph = new TubeGraph(stationsArray,connectionsArray,linesArray);
+        return graph;
+    }
+
+    private static TubeStation[] readTubeStations(InputStream data) throws IOException {
+        TubeStation[] stationsArray;
+        try (Reader stationsReader= new InputStreamReader( data ) ) {
             CsvToBean<TubeStation> csvToBean = new CsvToBeanBuilder(stationsReader)
                     .withType(TubeStation.class)
                     .withIgnoreLeadingWhiteSpace(true)
                     .build();
-
 
             List<TubeStation> stationsList = csvToBean.parse();
 
@@ -41,9 +56,10 @@ public class TubeReader {
         }
         return stationsArray;
     }
-    private static TubeConnection[] readTubeConnections(Context context) throws IOException {
+
+    private static TubeConnection[] readTubeConnections(InputStream stream) throws IOException {
         TubeConnection[] array;
-        try (Reader reader= new InputStreamReader(context.getResources().openRawResource(R.raw.london_connections)) ) {
+        try (Reader reader= new InputStreamReader(stream) ) {
             CsvToBean<TubeConnection> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(TubeConnection.class)
                     .withIgnoreLeadingWhiteSpace(true)
@@ -56,9 +72,9 @@ public class TubeReader {
         }
         return array;
     }
-    private static TubeLine[] readTubeLines(Context context) throws IOException {
+    private static TubeLine[] readTubeLines(InputStream stream) throws IOException {
         TubeLine[] array;
-        try (Reader reader= new InputStreamReader(context.getResources().openRawResource(R.raw.london_lines)) ) {
+        try (Reader reader= new InputStreamReader(stream) ) {
             CsvToBean<TubeLine> csvToBean = new CsvToBeanBuilder(reader)
                     .withType(TubeLine.class)
                     .withIgnoreLeadingWhiteSpace(true)

@@ -9,7 +9,7 @@ public class Graph {
         nameToNode.put(nodeA.getName(), nodeA);
     }
 
-    private Node getNode(String name){
+    public Node getNode(String name){
         return nameToNode.get(name);
     }
 
