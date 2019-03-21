@@ -12,8 +12,8 @@ public class BuildRoute extends AppCompatActivity {
         setContentView(R.layout.activity_build_route);
         Intent intent=getIntent();
 
-        String firstStaion=  intent.getStringExtra(FastPipeActivity.FIRST_STATION);
-        String secondStaion=  intent.getStringExtra(FastPipeActivity.SECOND_STATION);
+        String firstStation=  intent.getStringExtra(FastPipeActivity.FIRST_STATION);
+        String secondStation=  intent.getStringExtra(FastPipeActivity.SECOND_STATION);
     }
 }
 
