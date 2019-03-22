@@ -63,4 +63,63 @@ public class RealTubeTest {
         assertTrue(viaStation("North Greenwich", route));
     }
 
+    @Test
+    public void Bank_to_Cyprus() throws IOException {
+        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
+
+        tube.calculateShortestPathFromSource("Bank");
+        List<Node> route = tube.getShortestPath("Cyprus");
+
+        assertEquals(13, route.size());
+
+        assertTrue(viaStation("Bank", route));
+        assertTrue(viaStation("Shadwell", route));
+        assertTrue(viaStation("Canning Town", route));
+        assertTrue(viaStation("Beckton Park", route));
+    }
+
+    @Test
+    public void Westminster_to_Westminster() throws IOException {
+        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
+
+        tube.calculateShortestPathFromSource("Westminster");
+        List<Node> route = tube.getShortestPath("Westminster");
+
+        assertEquals(0, route.size());
+    }
+
+    @Test
+    public void SouthQuay_to_Richmond() throws IOException {
+        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
+
+        tube.calculateShortestPathFromSource("South Quay");
+        List<Node> route = tube.getShortestPath("Richmond");
+
+        assertEquals(20, route.size());
+
+        assertTrue(viaStation("Canary Wharf", route));
+        assertTrue(viaStation("Waterloo", route));
+        assertTrue(viaStation("South Kensington", route));
+        assertTrue(viaStation("Westminster", route));
+        assertTrue(viaStation("Hammersmith", route));
+        assertTrue(viaStation("Gunnersbury", route));
+    }
+
+//    @Test
+//    public void Westferry_to_Mudchute() throws IOException {
+//        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
+//
+//        tube.calculateShortestPathFromSource("Westferry");
+//        List<Node> route = tube.getShortestPath("Mudchute");
+//
+//        LinkedList<Node> expected = new LinkedList<>();
+//        expected.push( tube.getNode("Crossharbour"));
+//        expected.push( tube.getNode("South Quay"));
+//        expected.push( tube.getNode("Heron Quays"));
+//        expected.push( tube.getNode("Canary Wharf"));
+//        expected.push( tube.getNode("West India Quay"));
+//        expected.push( tube.getNode("Westferry"));
+//
+//        assertEquals(expected, route);
+//    }
 }
