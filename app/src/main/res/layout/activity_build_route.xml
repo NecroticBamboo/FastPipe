@@ -4,13 +4,73 @@
         xmlns:app="http://schemas.android.com/apk/res-auto" xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".BuildRoute">
+        tools:context=".BuildRoute" android:animateLayoutChanges="?android:attr/windowSwipeToDismiss">
 
     <TextView
-            android:text="Bank"
-            android:layout_width="29dp"
-            android:layout_height="17dp"
-            android:id="@+id/textView3" android:layout_marginTop="32dp"
-            app:layout_constraintTop_toTopOf="parent" app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginEnd="308dp"/>
+            android:text="Suggested Route"
+            android:layout_width="wrap_content"
+            android:layout_height="24dp" android:id="@+id/textView4" android:textSize="18sp"
+            tools:layout_editor_absoluteY="1dp" android:fontFamily="casual" tools:ignore="MissingConstraints"/>
+    <TextView
+            android:text="31 mins"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView6" app:layout_constraintEnd_toStartOf="@+id/textView8"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginBottom="8dp"
+            app:layout_constraintHorizontal_bias="0.24" app:layout_constraintVertical_bias="0.163"/>
+    <TextView
+            android:text="Bank Station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tools:layout_editor_absoluteX="16dp" android:id="@+id/textView3" android:layout_marginBottom="28dp"
+            app:layout_constraintBottom_toTopOf="@+id/textView6" tools:ignore="MissingConstraints"/>
+    <TextView
+            android:text="Cyprus DLR Station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView7" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginEnd="8dp" app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginStart="8dp" app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintVertical_bias="0.066"/>
+    <TextView
+            android:text="1 change"
+            android:layout_width="wrap_content"
+            android:layout_height="23dp"
+            android:id="@+id/textView8" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintVertical_bias="0.157"
+            app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.278"/>
+    <TextView
+            android:text="Take DRL towards Woowich Arsenal"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView9" android:layout_marginBottom="8dp"
+            app:layout_constraintBottom_toBottomOf="parent" app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginTop="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.225"/>
+    <TextView
+            android:text="Change at Canning Town Station"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView10" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView9" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.057"/>
+    <TextView
+            android:text="Take DLR towards Beckton"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:id="@+id/textView11" android:layout_marginTop="8dp"
+            app:layout_constraintTop_toBottomOf="@+id/textView10" app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginBottom="8dp" app:layout_constraintEnd_toEndOf="parent" android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="8dp"
+            app:layout_constraintHorizontal_bias="0.0" app:layout_constraintVertical_bias="0.066"/>
 </android.support.constraint.ConstraintLayout>

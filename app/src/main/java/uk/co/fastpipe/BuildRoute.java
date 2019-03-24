@@ -14,6 +14,9 @@ public class BuildRoute extends AppCompatActivity {
 
         String firstStation=  intent.getStringExtra(FastPipeActivity.FIRST_STATION);
         String secondStation=  intent.getStringExtra(FastPipeActivity.SECOND_STATION);
+        System.out.println (firstStation + secondStation);
+
     }
+
 }
 
