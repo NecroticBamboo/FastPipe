@@ -7,7 +7,8 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
         tools:showIn="@layout/app_bar_fast_pipe"
-        tools:context=".FastPipeActivity" tools:layout_editor_absoluteY="81dp">
+        tools:context=".FastPipeActivity" tools:layout_editor_absoluteY="81dp"
+        android:background="#f1f1e8">
 
     <TextView
             android:text="Where do you want to go?"
@@ -49,7 +50,8 @@
     <Spinner
             android:layout_width="371dp"
             android:layout_height="35dp"
-            android:id="@+id/spinnerSecondStation" android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
+            android:id="@+id/spinnerSecondStation" android:layout_marginEnd="16dp"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
             android:layout_marginBottom="88dp" app:layout_constraintBottom_toTopOf="@+id/buttonBuildRoute"
     />
