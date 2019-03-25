@@ -121,7 +121,7 @@ public class FastPipeActivity extends AppCompatActivity
      * @param conjunction
      * @return
      */
-    static public String join(List<Node> list, String conjunction)
+    static public String join(List<Node> list, String conjunction)  //TODO write test in FastPipeActivityTest
     {
         StringBuilder sb = new StringBuilder();
         boolean first = true;

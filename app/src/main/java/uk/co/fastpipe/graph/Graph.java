@@ -4,13 +4,19 @@ import java.util.*;
 
 public class Graph {
     private HashMap<String, Node> nameToNode = new HashMap<String, Node>();
+    private HashMap<Integer, Node> idToNode = new HashMap<Integer, Node>();
 
     public void addNode(Node nodeA) {
         nameToNode.put(nodeA.getName(), nodeA);
+        idToNode.put(nodeA.getStation().getId(), nodeA);
     }
 
     public Node getNode(String name){
         return nameToNode.get(name);
+    }
+
+    public Node getNodeById(int id) {
+        return idToNode.get(id);
     }
 
     public void calculateShortestPathFromSource(String name) {
@@ -83,4 +89,6 @@ public class Graph {
             evaluationNode.setShortestPath(shortestPath);
         }
     }
+
+
 }
