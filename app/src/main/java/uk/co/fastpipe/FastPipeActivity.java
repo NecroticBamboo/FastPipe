@@ -68,9 +68,9 @@ public class FastPipeActivity extends AppCompatActivity
                 spinnerArray.add(stations[i].getName());
             }
 
-            SetUpSinner(spinnerArray, R.id.spinnerFirstStation, R.id.editTextFirstSation);
+            setUpSinner(spinnerArray, R.id.spinnerFirstStation, R.id.editTextFirstSation);
 
-            SetUpSinner(spinnerArray, R.id.spinnerSecondStation, R.id.editTextSecondStation);
+            setUpSinner(spinnerArray, R.id.spinnerSecondStation, R.id.editTextSecondStation);
 
         } catch (IOException ex) {
 
@@ -78,14 +78,21 @@ public class FastPipeActivity extends AppCompatActivity
 
     }
 
-    private void SetUpSinner(ArrayList<String> spinnerArray, int spinnerSecondStation, int editTextSecondStation) {
-        final Spinner spinner = findViewById(spinnerSecondStation);
+    private void setUpSinner(ArrayList<String> stationNames, int spinnerId, int editTextId) {
+        final Spinner spinner = findViewById(spinnerId); // find the spinner by Id
+
+        // create ArrayAdapter which will link stationNames to spinner
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
                 android.R.layout.simple_spinner_dropdown_item,
-                spinnerArray);
+                stationNames);
+
+        // attach adapter to spinner. From now on spinner will display station names
         spinner.setAdapter(adapter);
 
-        final EditText editText2 = findViewById(editTextSecondStation);
+        // find editText by id
+        final EditText editText2 = findViewById(editTextId);
+
+        // attach TextWatcher to editText. It will react on changes in the input string
         editText2.addTextChangedListener(new TextWatcher() {
             boolean _ignore = false; // indicates if the change was made by the TextWatcher itself.
 
@@ -102,12 +109,12 @@ public class FastPipeActivity extends AppCompatActivity
 
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
+                // does nothing
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                // does nothing
             }
         });
     }
@@ -141,6 +148,7 @@ public class FastPipeActivity extends AppCompatActivity
      * Called when the user taps the Send button
      */
     public void onBuildRouteClick(View view) {
+        // create the Intent
         Intent intent = new Intent(this, BuildRoute.class);
         Spinner first = findViewById(R.id.spinnerFirstStation);
         Spinner second = findViewById(R.id.spinnerSecondStation);
@@ -148,16 +156,23 @@ public class FastPipeActivity extends AppCompatActivity
         String fistStation = first.getSelectedItem().toString();
         String secondStation = second.getSelectedItem().toString();
 
+        // --------------------------------------------------------- find the path
         Graph nodeGraph = tube.generateGraph();
-        nodeGraph.calculateShortestPathFromSource(fistStation);
+        // algorithm finds paths from every single point in the graph to the destination point
+        nodeGraph.calculateShortestPathFromSource(fistStation); // runs the algorithm!
+        // here we can get the path from any starting point
+        // ---------------------------------------------------------
 
+        // path was found above. simply get the route starting from secondStation
         List<Node> commuteRoute = nodeGraph.getShortestPath(secondStation);
         String routeStr = join(commuteRoute,",");
 
+        // setup intent parameters. this is how we pass information between activities
         intent.putExtra(FIRST_STATION, fistStation);
         intent.putExtra(SECOND_STATION, secondStation);
         intent.putExtra(ROUTE_STRING, routeStr);
 
+        // show BuildRoute activity
         startActivity(intent);
     }
 
