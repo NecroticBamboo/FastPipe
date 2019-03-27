@@ -10,6 +10,7 @@ import uk.co.fastpipe.graph.Node;
 import uk.co.fastpipe.models.TubeReader;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 import static junit.framework.TestCase.assertTrue;
@@ -61,6 +62,27 @@ public class RealTubeTest {
         // alternatively you can check key stations only
         assertTrue(viaStation("Canary Wharf", route));
         assertTrue(viaStation("North Greenwich", route));
+    }
+
+    @Test
+    public void Liverpoolstreet_to_Canningtown() throws IOException { //Kierans Test
+        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
+        tube.calculateShortestPathFromSource("Liverpool Street");
+        List<Node> route = tube.getShortestPath("Canning Town");
+
+        assertEquals(6, route.size());
+
+
+        LinkedList<Node> expected = new LinkedList<>();
+        expected.push( tube.getNode("Liverpool Street"));
+        expected.push( tube.getNode("Bethnal Green"));
+        expected.push( tube.getNode("Mile End"));
+        expected.push( tube.getNode("Bow Road"));
+        expected.push( tube.getNode("Bromley By Bow"));
+        expected.push( tube.getNode("West Ham"));
+        expected.push( tube.getNode("Canning Town"));
+
+
     }
 
     @Test

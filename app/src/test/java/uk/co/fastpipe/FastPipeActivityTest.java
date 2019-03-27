@@ -1,19 +1,27 @@
 package uk.co.fastpipe;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import uk.co.fastpipe.graph.Graph;
+import uk.co.fastpipe.graph.Node;
+import uk.co.fastpipe.models.TubeReader;
 
 import java.io.IOException;
+import java.util.List;
+
+import static junit.framework.TestCase.assertEquals;
 
 public class FastPipeActivityTest {
 
+    @RunWith(AndroidJUnit4.class)
+
+
     @Test
-    public void Test1() throws IOException {
-
-
+    public void SouthQuay_To_Cyprus() throws IOException {
         Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
 
-        tube.calculateShortestPathFromSource("Liverpool Street");
-        List<Node> route = tube.getShortestPath("Canning town");
+        tube.calculateShortestPathFromSource("South Quay");
+        List<Node> route = tube.getShortestPath("Cyprus");
 
         assertEquals(10, route.size());
 
