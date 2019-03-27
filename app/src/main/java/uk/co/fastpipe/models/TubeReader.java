@@ -12,7 +12,29 @@ import java.io.Reader;
 import java.util.List;
 
 public class TubeReader {
+    // singleton
+    private static TubeGraph staticGraph = null;
+
+    /**
+     * Load tube graph. Uses local singleton for speed.
+     * @param context
+     * @return loaded graph
+     * @throws IOException
+     */
     public static TubeGraph load(Context context) throws IOException {
+        if ( staticGraph != null )
+            return staticGraph;
+        staticGraph = loadInternal(context);
+        return staticGraph;
+    }
+
+    /**
+     * Parse CSV and build a tube graph.
+     * @param context
+     * @return Loaded tube graph
+     * @throws IOException
+     */
+    private static TubeGraph loadInternal(Context context) throws IOException {
 
         TubeStation[] stationsArray;
         TubeConnection[] connectionsArray;
@@ -27,7 +49,22 @@ public class TubeReader {
         return graph;
     }
 
+    /**
+     * Load tube graph. Used for unit testing. Uses singleton.
+     * @param stations
+     * @param connections
+     * @param lines
+     * @return
+     * @throws IOException
+     */
     public static TubeGraph load(InputStream stations, InputStream connections, InputStream lines) throws IOException {
+        if ( staticGraph != null )
+            return staticGraph;
+        staticGraph = loadInternal(stations, connections, lines);
+        return staticGraph;
+    }
+
+    private static TubeGraph loadInternal(InputStream stations, InputStream connections, InputStream lines) throws IOException {
 
         TubeStation[] stationsArray;
         TubeConnection[] connectionsArray;

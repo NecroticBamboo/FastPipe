@@ -125,7 +125,7 @@ public class GraphTest {
     }
 
     @Test
-    public void Fork(){
+    public void fork(){
         //      F 6 7
         //      \ | /
         //        5
