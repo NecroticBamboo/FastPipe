@@ -86,6 +86,52 @@ public class RealTubeTest {
     }
 
     @Test
+    public void Cyprus_to_Cyprus() throws IOException { //Kierans Test
+        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
+
+        tube.calculateShortestPathFromSource("Cyprus");
+        List<Node> route = tube.getShortestPath("Cyprus");
+
+        assertEquals(0, route.size());
+
+        LinkedList<Node> expected = new LinkedList<>();
+        expected.push( tube.getNode("Cyprus"));
+    }
+
+    @Test
+    public void Kensington_to_Cyprus() throws IOException { //Kierans Test
+        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
+        tube.calculateShortestPathFromSource("Kensington (Olympia)");
+        List<Node> route = tube.getShortestPath("Cyprus");
+
+        assertEquals(21, route.size());
+
+
+        LinkedList<Node> expected = new LinkedList<>();
+        expected.push(tube.getNode("Kensington (Olympia)"));
+        expected.push(tube.getNode("Earl's Court"));
+        expected.push(tube.getNode("Gloucester Road"));
+        expected.push(tube.getNode("South Kensington"));
+        expected.push(tube.getNode("Sloane Square"));
+        expected.push(tube.getNode("Victoria"));
+        expected.push(tube.getNode("St.James's Park"));
+        expected.push(tube.getNode("Westminster"));
+        expected.push(tube.getNode("Waterloo"));
+        expected.push(tube.getNode("Southwark"));
+        expected.push(tube.getNode("London Bridge"));
+        expected.push(tube.getNode("Bermondsey"));
+        expected.push(tube.getNode("Canada Water"));
+        expected.push(tube.getNode("Canary Wharf"));
+        expected.push(tube.getNode("North Greenwich"));
+        expected.push(tube.getNode("Canning Town"));
+        expected.push(tube.getNode("Royal Victoria"));
+        expected.push(tube.getNode("Custom House"));
+        expected.push(tube.getNode("Prince Regent"));
+        expected.push(tube.getNode("Cyprus"));
+    }
+
+
+        @Test
     public void Bank_to_Cyprus() throws IOException {
         Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
 
