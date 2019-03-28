@@ -31,7 +31,7 @@ public class RealTubeTest {
         assertEquals("uk.co.fastpipe", appContext.getPackageName());
     }
 
-    private boolean viaStation(String name, List<Node> route) {
+    public boolean viaStation(String name, List<Node> route) {
         for( Node n : route ) {
             if ( n.getName().equals(name) )
                 return true;
