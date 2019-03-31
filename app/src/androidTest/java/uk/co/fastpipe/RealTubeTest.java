@@ -32,8 +32,8 @@ public class RealTubeTest {
     }
 
     public boolean viaStation(String name, List<Node> route) {
-        for( Node n : route ) {
-            if ( n.getName().equals(name) )
+        for (Node n : route) {
+            if (n.getName().equals(name))
                 return true;
         }
         return false;
@@ -74,13 +74,13 @@ public class RealTubeTest {
 
 
         LinkedList<Node> expected = new LinkedList<>();
-        expected.push( tube.getNode("Liverpool Street"));
-        expected.push( tube.getNode("Bethnal Green"));
-        expected.push( tube.getNode("Mile End"));
-        expected.push( tube.getNode("Bow Road"));
-        expected.push( tube.getNode("Bromley By Bow"));
-        expected.push( tube.getNode("West Ham"));
-        expected.push( tube.getNode("Canning Town"));
+        expected.push(tube.getNode("Liverpool Street"));
+        expected.push(tube.getNode("Bethnal Green"));
+        expected.push(tube.getNode("Mile End"));
+        expected.push(tube.getNode("Bow Road"));
+        expected.push(tube.getNode("Bromley By Bow"));
+        expected.push(tube.getNode("West Ham"));
+        expected.push(tube.getNode("Canning Town"));
 
 
     }
@@ -95,7 +95,7 @@ public class RealTubeTest {
         assertEquals(0, route.size());
 
         LinkedList<Node> expected = new LinkedList<>();
-        expected.push( tube.getNode("Cyprus"));
+        expected.push(tube.getNode("Cyprus"));
     }
 
     @Test
@@ -131,7 +131,7 @@ public class RealTubeTest {
     }
 
 
-        @Test
+    @Test
     public void Bank_to_Cyprus() throws IOException {
         Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
 
@@ -173,21 +173,21 @@ public class RealTubeTest {
         assertTrue(viaStation("Gunnersbury", route));
     }
 
-//    @Test
-//    public void Westferry_to_Mudchute() throws IOException {
-//        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
-//
-//        tube.calculateShortestPathFromSource("Westferry");
-//        List<Node> route = tube.getShortestPath("Mudchute");
-//
-//        LinkedList<Node> expected = new LinkedList<>();
-//        expected.push( tube.getNode("Crossharbour"));
-//        expected.push( tube.getNode("South Quay"));
-//        expected.push( tube.getNode("Heron Quays"));
-//        expected.push( tube.getNode("Canary Wharf"));
-//        expected.push( tube.getNode("West India Quay"));
-//        expected.push( tube.getNode("Westferry"));
-//
-//        assertEquals(expected, route);
-//    }
+    @Test
+    public void Westferry_to_Mudchute() throws IOException {
+        Graph tube = TubeReader.load(InstrumentationRegistry.getTargetContext()).generateGraph();
+
+        tube.calculateShortestPathFromSource("Westferry");
+        List<Node> route = tube.getShortestPath("Mudchute");
+
+        LinkedList<Node> expected = new LinkedList<>();
+        expected.push(tube.getNode("Crossharbour & London Arena"));
+        expected.push(tube.getNode("South Quay"));
+        expected.push(tube.getNode("Heron Quays"));
+        expected.push(tube.getNode("Canary Wharf"));
+        expected.push(tube.getNode("West India Quay"));
+        expected.push(tube.getNode("Westferry"));
+
+        assertEquals(expected, route);
+    }
 }

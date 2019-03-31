@@ -19,15 +19,21 @@ public class BuildRoute extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_build_route);
-        Intent intent=getIntent();
+        Intent intent = getIntent();
 
-        String firstStation=  intent.getStringExtra(FastPipeActivity.FIRST_STATION);
-        String secondStation=  intent.getStringExtra(FastPipeActivity.SECOND_STATION);
-        String routeStr=  intent.getStringExtra(FastPipeActivity.ROUTE_STRING);
+        String firstStation = intent.getStringExtra(FastPipeActivity.FIRST_STATION);
+        String secondStation = intent.getStringExtra(FastPipeActivity.SECOND_STATION);
+        String routeStr = intent.getStringExtra(FastPipeActivity.ROUTE_STRING);
+        String[] ids;
 
-        // split route str by ','
-        String[] ids = routeStr.split(",");
+// Must call equals because Java compares strings by reference
+        if (routeStr.equals("")) {
+            ids = new String[0];
 
+        } else {
+            // split route str by ','
+            ids = routeStr.split(",");
+        }
 
         // load tube graph
         try {
@@ -41,9 +47,9 @@ public class BuildRoute extends AppCompatActivity {
                     list);
 
             // find stations by their IDs
-            for(int i = 0; i < ids.length; i++){
+            for (int i = 0; i < ids.length; i++) {
                 // convert each item to number (ID)
-                int id= Integer.parseInt(ids[i]);
+                int id = Integer.parseInt(ids[i]);
 
                 // take station names and add them to the list
                 Node n = g.getNodeById(id);
@@ -56,10 +62,9 @@ public class BuildRoute extends AppCompatActivity {
             // display the list
             listView.setAdapter(adapter);
 
-        } catch (IOException ex){
+        } catch (IOException ex) {
 
         }
-
     }
 
 }

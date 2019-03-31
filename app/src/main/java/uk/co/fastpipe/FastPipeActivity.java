@@ -119,12 +119,13 @@ public class FastPipeActivity extends AppCompatActivity
         });
     }
 
-    public static String FIRST_STATION  = "first_station";
+    public static String FIRST_STATION = "first_station";
     public static String SECOND_STATION = "second_station";
-    public static String ROUTE_STRING   = "route_string";
+    public static String ROUTE_STRING = "route_string";
 
     /**
      * Join stationID as String
+     *
      * @param list
      * @param conjunction
      * @return
@@ -133,8 +134,7 @@ public class FastPipeActivity extends AppCompatActivity
     {
         StringBuilder sb = new StringBuilder();
         boolean first = true;
-        for (Node item : list)
-        {
+        for (Node item : list) {
             if (first)
                 first = false;
             else
@@ -156,21 +156,30 @@ public class FastPipeActivity extends AppCompatActivity
         String fistStation = first.getSelectedItem().toString();
         String secondStation = second.getSelectedItem().toString();
 
-        // --------------------------------------------------------- find the path
-        Graph nodeGraph = tube.generateGraph();
-        // algorithm finds paths from every single point in the graph to the destination point
-        nodeGraph.calculateShortestPathFromSource(fistStation); // runs the algorithm!
-        // here we can get the path from any starting point
-        // ---------------------------------------------------------
+        if (fistStation != secondStation) {
 
-        // path was found above. simply get the route starting from secondStation
-        List<Node> commuteRoute = nodeGraph.getShortestPath(secondStation);
-        String routeStr = join(commuteRoute,",");
+            // --------------------------------------------------------- find the path
+            Graph nodeGraph = tube.generateGraph();
+            // algorithm finds paths from every single point in the graph to the destination point
+            nodeGraph.calculateShortestPathFromSource(fistStation); // runs the algorithm!
+            // here we can get the path from any starting point
+            // ---------------------------------------------------------
 
-        // setup intent parameters. this is how we pass information between activities
-        intent.putExtra(FIRST_STATION, fistStation);
-        intent.putExtra(SECOND_STATION, secondStation);
-        intent.putExtra(ROUTE_STRING, routeStr);
+            // path was found above. simply get the route starting from secondStation
+            List<Node> commuteRoute = nodeGraph.getShortestPath(secondStation);
+            String routeStr = join(commuteRoute, ",");
+
+            // setup intent parameters. this is how we pass information between activities
+            intent.putExtra(FIRST_STATION, fistStation);
+            intent.putExtra(SECOND_STATION, secondStation);
+            intent.putExtra(ROUTE_STRING, routeStr);
+
+        } else {
+            // If stations are equal pass empty route
+            intent.putExtra(FIRST_STATION, fistStation);
+            intent.putExtra(SECOND_STATION, secondStation);
+            intent.putExtra(ROUTE_STRING, "");
+        }
 
         // show BuildRoute activity
         startActivity(intent);
