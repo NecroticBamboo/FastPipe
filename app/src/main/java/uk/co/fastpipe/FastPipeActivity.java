@@ -31,6 +31,10 @@ import java.util.List;
 public class FastPipeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
+    public static String FIRST_STATION = "first_station";
+    public static String SECOND_STATION = "second_station";
+    public static String ROUTE_STRING = "route_string";
+
     private TubeGraph tube;
 
 
@@ -40,6 +44,8 @@ public class FastPipeActivity extends AppCompatActivity
         setContentView(R.layout.activity_fast_pipe);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        // this is for future extension. not working yet. was added by the wizard
 
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -59,17 +65,20 @@ public class FastPipeActivity extends AppCompatActivity
         NavigationView navigationView = findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        // end of future
+
+        // load tube graph and set up spinners
         try {
             tube = TubeReader.load(this);
             TubeStation[] stations = tube.getTubeStations();
             ArrayList<String> spinnerArray = new ArrayList<String>();
 
+            // both spinners will contain the same list of stations
             for (int i = 0; i < stations.length; i++) {
                 spinnerArray.add(stations[i].getName());
             }
 
-            setUpSinner(spinnerArray, R.id.spinnerFirstStation, R.id.editTextFirstSation);
-
+            setUpSinner(spinnerArray, R.id.spinnerFirstStation,  R.id.editTextFirstSation);
             setUpSinner(spinnerArray, R.id.spinnerSecondStation, R.id.editTextSecondStation);
 
         } catch (IOException ex) {
@@ -78,6 +87,12 @@ public class FastPipeActivity extends AppCompatActivity
 
     }
 
+    /**
+     * Set up spinner with data and attach listener. Add "on text changed" reaction
+     * @param stationNames - the full list of tube stations
+     * @param spinnerId - id of spinner to set up
+     * @param editTextId - id of text field to attach to
+     */
     private void setUpSinner(ArrayList<String> stationNames, int spinnerId, int editTextId) {
         final Spinner spinner = findViewById(spinnerId); // find the spinner by Id
 
@@ -119,9 +134,7 @@ public class FastPipeActivity extends AppCompatActivity
         });
     }
 
-    public static String FIRST_STATION = "first_station";
-    public static String SECOND_STATION = "second_station";
-    public static String ROUTE_STRING = "route_string";
+
 
     /**
      * Join stationID as String
@@ -156,6 +169,7 @@ public class FastPipeActivity extends AppCompatActivity
         String fistStation = first.getSelectedItem().toString();
         String secondStation = second.getSelectedItem().toString();
 
+        // there is no need to call the path finder if we are not going anywhere
         if (fistStation != secondStation) {
 
             // --------------------------------------------------------- find the path
@@ -184,6 +198,8 @@ public class FastPipeActivity extends AppCompatActivity
         // show BuildRoute activity
         startActivity(intent);
     }
+
+    // standard Android calls. Nothing has changed since added by wizard
 
     @Override
     public void onBackPressed() {

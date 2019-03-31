@@ -22,6 +22,7 @@ public class TubeReader {
      * @throws IOException
      */
     public static TubeGraph load(Context context) throws IOException {
+        // use staticGraph to stop loading graph twice (this is an expensive operation)
         if ( staticGraph != null )
             return staticGraph;
         staticGraph = loadInternal(context);
