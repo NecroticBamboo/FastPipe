@@ -166,8 +166,15 @@ public class FastPipeActivity extends AppCompatActivity
         Spinner first = findViewById(R.id.spinnerFirstStation);
         Spinner second = findViewById(R.id.spinnerSecondStation);
 
-        String fistStation = first.getSelectedItem().toString();
-        String secondStation = second.getSelectedItem().toString();
+        Object st1 = first.getSelectedItem();
+        if ( st1 == null )
+            return;
+        Object st2 = second.getSelectedItem();
+        if ( st2 == null )
+            return;
+
+        String fistStation = st1.toString();
+        String secondStation = st2.toString();
 
         // there is no need to call the path finder if we are not going anywhere
         if (fistStation != secondStation) {
