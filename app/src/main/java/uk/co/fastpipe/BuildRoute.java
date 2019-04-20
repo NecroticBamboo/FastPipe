@@ -21,8 +21,6 @@ public class BuildRoute extends AppCompatActivity {
         setContentView(R.layout.activity_build_route);
         Intent intent = getIntent();
 
-        String firstStation = intent.getStringExtra(FastPipeActivity.FIRST_STATION);
-        String secondStation = intent.getStringExtra(FastPipeActivity.SECOND_STATION);
         String routeStr = intent.getStringExtra(FastPipeActivity.ROUTE_STRING);
         String[] ids;
 
@@ -41,6 +39,9 @@ public class BuildRoute extends AppCompatActivity {
             Graph g = tube.generateGraph();
 
             final ArrayList<String> list = new ArrayList<>();
+            final ArrayList<Integer> listColour = new ArrayList<>();
+
+            //final LinearLayout listView2 = findViewById(R.id.linearLayout);
             final ListView listView = findViewById(R.id.routeView);
             final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                     android.R.layout.simple_list_item_1,
@@ -55,12 +56,14 @@ public class BuildRoute extends AppCompatActivity {
                 Node n = g.getNodeById(id);
                 list.add(n.getName());
 
+                //listColour.add(n.getLine().getColor());
+
             }
-            // adds the last station to the list
-            list.add(secondStation);
+
 
             // display the list
             listView.setAdapter(adapter);
+
 
         } catch (IOException ex) {
 

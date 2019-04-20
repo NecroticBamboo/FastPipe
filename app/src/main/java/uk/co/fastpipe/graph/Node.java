@@ -1,5 +1,6 @@
 package uk.co.fastpipe.graph;
 
+import uk.co.fastpipe.models.TubeLine;
 import uk.co.fastpipe.models.TubeStation;
 
 import java.util.HashMap;
@@ -12,6 +13,7 @@ public class Node {
 
     private Integer distance = Integer.MAX_VALUE;
     private TubeStation station;
+    private TubeLine line;
 
     // destination node and edge weight
     Map<Node, Integer> adjacentNodes = new HashMap<>();
@@ -52,8 +54,16 @@ public class Node {
         return station;
     }
 
+    public TubeLine getLine(){return line;}
+
+    public int getColor(){return line.getColor();}
+
     public void clear() {
         setDistance(Integer.MAX_VALUE);
         setShortestPath(new LinkedList<Node>());
+    }
+
+    public void setLine(TubeLine line) {
+        this.line = line;
     }
 }

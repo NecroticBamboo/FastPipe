@@ -17,4 +17,5 @@
     <string name="build_route">Build Route</string>
     <string name="write_next_staion">Enter Second Station</string>
     <string name="best_result">Best Result</string>
+    <string name="title_activity_test">Test</string>
 </resources>

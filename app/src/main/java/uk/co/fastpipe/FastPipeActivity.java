@@ -87,6 +87,7 @@ public class FastPipeActivity extends AppCompatActivity
 
     }
 
+
     /**
      * Set up spinner with data and attach listener. Add "on text changed" reaction
      * @param stationNames - the full list of tube stations
@@ -132,6 +133,7 @@ public class FastPipeActivity extends AppCompatActivity
                 // does nothing
             }
         });
+
     }
 
 
@@ -187,7 +189,18 @@ public class FastPipeActivity extends AppCompatActivity
             // ---------------------------------------------------------
 
             // path was found above. simply get the route starting from secondStation
-            List<Node> commuteRoute = nodeGraph.getShortestPath(secondStation);
+            List<Node> commuteRoute = new ArrayList<Node>(nodeGraph.getShortestPath(secondStation));
+
+            // adds the last station to the list
+            commuteRoute.add(nodeGraph.getNode(secondStation));
+
+            // remove crossings for the same station at the end
+            if(commuteRoute.size()>=2) {
+                while (commuteRoute.get(commuteRoute.size() - 1).getName() == commuteRoute.get(commuteRoute.size() - 2).getName()) {
+                    commuteRoute.remove(commuteRoute.size() - 1);
+                }
+            }
+
             String routeStr = join(commuteRoute, ",");
 
             // setup intent parameters. this is how we pass information between activities
@@ -246,9 +259,13 @@ public class FastPipeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_map) {
+            Intent intent = new Intent(this, MapActivity.class);
+            startActivity(intent);
+
+        } else if(id == R.id.nav_camera) {
             // Handle the camera action
-        } else if (id == R.id.nav_gallery) {
+        }else if (id == R.id.nav_gallery) {
 
         } else if (id == R.id.nav_slideshow) {
 

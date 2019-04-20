@@ -28,7 +28,8 @@
             android:layout_marginStart="16dp" android:id="@+id/editTextFirstSation"
             android:layout_marginBottom="32dp" app:layout_constraintBottom_toTopOf="@+id/spinnerFirstStation"
             android:hint="@string/write_station" android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.428"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.428"
+    />
     <Spinner
             android:layout_width="371dp"
             android:layout_height="30dp"

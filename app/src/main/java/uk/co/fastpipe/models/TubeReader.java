@@ -43,8 +43,7 @@ public class TubeReader {
 
         stationsArray = readTubeStations(context.getResources().openRawResource(R.raw.london_stations));
         connectionsArray = readTubeConnections(context.getResources().openRawResource(R.raw.london_connections));
-        //linesArray = readTubeLines(context.getResources().openRawResource(R.raw.london_lines));
-        linesArray = null;    //TODO read lines
+        linesArray = readTubeLines(context.getResources().openRawResource(R.raw.london_lines));
 
         TubeGraph graph = new TubeGraph(stationsArray,connectionsArray,linesArray);
         return graph;
