@@ -18,7 +18,7 @@
             android:layout_marginStart="16dp" android:id="@+id/textView5"
             android:layout_marginEnd="16dp" app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" android:layout_marginTop="16dp"
-    />
+            android:layout_marginBottom="66dp" app:layout_constraintBottom_toTopOf="@+id/editTextFirstSation"/>
     <EditText
             android:layout_width="372dp"
             android:layout_height="45dp"
@@ -26,9 +26,9 @@
             android:ems="10"
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp" android:id="@+id/editTextFirstSation"
-            android:layout_marginBottom="32dp" app:layout_constraintBottom_toTopOf="@+id/spinnerFirstStation"
+            android:layout_marginBottom="28dp" app:layout_constraintBottom_toTopOf="@+id/spinnerFirstStation"
             android:hint="@string/write_station" android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.428"
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="1.0"
     />
     <Spinner
             android:layout_width="371dp"
@@ -37,7 +37,8 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="16dp" android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
-            android:layout_marginBottom="28dp" app:layout_constraintBottom_toTopOf="@+id/editTextSecondStation"/>
+            android:layout_marginBottom="28dp" app:layout_constraintBottom_toTopOf="@+id/editTextSecondStation"
+            app:layout_constraintHorizontal_bias="0.875"/>
     <Button
             android:text="Find Route "
             android:layout_width="145dp"
@@ -46,7 +47,7 @@
             app:layout_constraintStart_toStartOf="parent"
             android:layout_marginStart="132dp" android:layout_marginEnd="132dp"
             app:layout_constraintEnd_toEndOf="parent" app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_marginBottom="60dp" app:layout_constraintHorizontal_bias="0.48"
+            android:layout_marginBottom="64dp"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" android:fontFamily="serif"/>
     <Spinner
             android:layout_width="371dp"
@@ -54,8 +55,8 @@
             android:id="@+id/spinnerSecondStation" android:layout_marginEnd="16dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            android:layout_marginBottom="88dp" app:layout_constraintBottom_toTopOf="@+id/buttonBuildRoute"
-    />
+            app:layout_constraintHorizontal_bias="0.875"
+            android:layout_marginTop="28dp" app:layout_constraintTop_toBottomOf="@+id/editTextSecondStation"/>
     <EditText
             android:layout_width="372dp"
             android:layout_height="45dp"
@@ -63,7 +64,7 @@
             android:ems="10"
             android:id="@+id/editTextSecondStation"
             app:layout_constraintStart_toStartOf="parent" android:layout_marginStart="16dp"
-            android:layout_marginBottom="24dp" app:layout_constraintBottom_toTopOf="@+id/spinnerSecondStation"
+            android:layout_marginBottom="28dp" app:layout_constraintBottom_toTopOf="@+id/spinnerSecondStation"
             android:hint="@string/write_next_staion" android:layout_marginEnd="16dp"
-            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.428"/>
+            app:layout_constraintEnd_toEndOf="parent" app:layout_constraintHorizontal_bias="0.857"/>
 </android.support.constraint.ConstraintLayout>

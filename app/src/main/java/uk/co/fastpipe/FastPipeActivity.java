@@ -31,8 +31,6 @@ import java.util.List;
 public class FastPipeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-    public static String FIRST_STATION = "first_station";
-    public static String SECOND_STATION = "second_station";
     public static String ROUTE_STRING = "route_string";
 
     private TubeGraph tube;
@@ -178,45 +176,48 @@ public class FastPipeActivity extends AppCompatActivity
         String fistStation = st1.toString();
         String secondStation = st2.toString();
 
-        // there is no need to call the path finder if we are not going anywhere
-        if (fistStation != secondStation) {
+        String routeStr = buildRoute(fistStation, secondStation);
 
-            // --------------------------------------------------------- find the path
-            Graph nodeGraph = tube.generateGraph();
-            // algorithm finds paths from every single point in the graph to the destination point
-            nodeGraph.calculateShortestPathFromSource(fistStation); // runs the algorithm!
-            // here we can get the path from any starting point
-            // ---------------------------------------------------------
-
-            // path was found above. simply get the route starting from secondStation
-            List<Node> commuteRoute = new ArrayList<Node>(nodeGraph.getShortestPath(secondStation));
-
-            // adds the last station to the list
-            commuteRoute.add(nodeGraph.getNode(secondStation));
-
-            // remove crossings for the same station at the end
-            if(commuteRoute.size()>=2) {
-                while (commuteRoute.get(commuteRoute.size() - 1).getName() == commuteRoute.get(commuteRoute.size() - 2).getName()) {
-                    commuteRoute.remove(commuteRoute.size() - 1);
-                }
-            }
-
-            String routeStr = join(commuteRoute, ",");
-
-            // setup intent parameters. this is how we pass information between activities
-            intent.putExtra(FIRST_STATION, fistStation);
-            intent.putExtra(SECOND_STATION, secondStation);
-            intent.putExtra(ROUTE_STRING, routeStr);
-
-        } else {
-            // If stations are equal pass empty route
-            intent.putExtra(FIRST_STATION, fistStation);
-            intent.putExtra(SECOND_STATION, secondStation);
-            intent.putExtra(ROUTE_STRING, "");
-        }
+        // setup intent parameters. this is how we pass information between activities
+        intent.putExtra(ROUTE_STRING, routeStr);
 
         // show BuildRoute activity
         startActivity(intent);
+    }
+
+    private String buildRoute(String fistStation, String secondStation) {
+
+        // there is no need to call the path finder if we are not going anywhere
+        if (fistStation != secondStation) {
+        }
+
+        // --------------------------------------------------------- find the path
+        Graph nodeGraph = tube.generateGraph();
+        // algorithm finds paths from every single point in the graph to the destination point
+        nodeGraph.calculateShortestPathFromSource(fistStation); // runs the algorithm!
+        // here we can get the path from any starting point
+        // ---------------------------------------------------------
+
+        // path was found above. simply get the route starting from secondStation
+        List<Node> commuteRoute = new ArrayList<Node>(nodeGraph.getShortestPath(secondStation));
+
+        // adds the last station to the list
+        commuteRoute.add(nodeGraph.getNode(secondStation));
+
+        // remove crossings for the same station at the beginning
+        if(commuteRoute.size()>=2) {
+            while (commuteRoute.get(0).getName() == commuteRoute.get(1).getName()) {
+                commuteRoute.remove(1);
+            }
+        }
+        // remove crossings for the same station at the end
+        if(commuteRoute.size()>=2) {
+            while (commuteRoute.get(commuteRoute.size() - 1).getName() == commuteRoute.get(commuteRoute.size() - 2).getName()) {
+                commuteRoute.remove(commuteRoute.size() - 1);
+            }
+        }
+
+        return join(commuteRoute, ",");
     }
 
     // standard Android calls. Nothing has changed since added by wizard
