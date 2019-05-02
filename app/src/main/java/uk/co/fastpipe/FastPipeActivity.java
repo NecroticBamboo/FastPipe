@@ -2,6 +2,7 @@ package uk.co.fastpipe;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
@@ -18,6 +19,7 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+import uk.co.fastpipe.Map.MapActivity;
 import uk.co.fastpipe.graph.Graph;
 import uk.co.fastpipe.graph.Node;
 import uk.co.fastpipe.models.TubeGraph;
@@ -43,6 +45,10 @@ public class FastPipeActivity extends AppCompatActivity
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if (android.os.Build.VERSION.SDK_INT > 9) {
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         // this is for future extension. not working yet. was added by the wizard
 
         FloatingActionButton fab = findViewById(R.id.fab);
@@ -69,7 +75,7 @@ public class FastPipeActivity extends AppCompatActivity
         try {
             tube = TubeReader.load(this);
             TubeStation[] stations = tube.getTubeStations();
-            ArrayList<String> spinnerArray = new ArrayList<String>();
+            ArrayList<String> spinnerArray = new ArrayList<>();
 
             // both spinners will contain the same list of stations
             for (int i = 0; i < stations.length; i++) {
@@ -96,7 +102,7 @@ public class FastPipeActivity extends AppCompatActivity
         final Spinner spinner = findViewById(spinnerId); // find the spinner by Id
 
         // create ArrayAdapter which will link stationNames to spinner
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(this,
+        final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_spinner_dropdown_item,
                 stationNames);
 
@@ -143,7 +149,7 @@ public class FastPipeActivity extends AppCompatActivity
      * @param conjunction
      * @return
      */
-    static public String join(List<Node> list, String conjunction)  //TODO write test in FastPipeActivityTest
+    static private String join(List<Node> list, String conjunction)  //TODO write test in FastPipeActivityTest
     {
         StringBuilder sb = new StringBuilder();
         boolean first = true;
@@ -188,8 +194,8 @@ public class FastPipeActivity extends AppCompatActivity
     private String buildRoute(String fistStation, String secondStation) {
 
         // there is no need to call the path finder if we are not going anywhere
-        if (fistStation != secondStation) {
-        }
+//        if (fistStation != secondStation) {
+//        }
 
         // --------------------------------------------------------- find the path
         Graph nodeGraph = tube.generateGraph();
@@ -199,20 +205,19 @@ public class FastPipeActivity extends AppCompatActivity
         // ---------------------------------------------------------
 
         // path was found above. simply get the route starting from secondStation
-        List<Node> commuteRoute = new ArrayList<Node>(nodeGraph.getShortestPath(secondStation));
+        List<Node> commuteRoute = new ArrayList<>(nodeGraph.getShortestPath(secondStation));
 
         // adds the last station to the list
         commuteRoute.add(nodeGraph.getNode(secondStation));
 
         // remove crossings for the same station at the beginning
-        if(commuteRoute.size()>=2) {
-            while (commuteRoute.get(0).getName() == commuteRoute.get(1).getName()) {
-                commuteRoute.remove(1);
-            }
+        while (commuteRoute.size()>=2 && commuteRoute.get(0).getName().equals(commuteRoute.get(1).getName())) {
+            commuteRoute.remove(0);
         }
+
         // remove crossings for the same station at the end
         if(commuteRoute.size()>=2) {
-            while (commuteRoute.get(commuteRoute.size() - 1).getName() == commuteRoute.get(commuteRoute.size() - 2).getName()) {
+            while (commuteRoute.get(commuteRoute.size() - 1).getName().equals(commuteRoute.get(commuteRoute.size() - 2).getName())) {
                 commuteRoute.remove(commuteRoute.size() - 1);
             }
         }

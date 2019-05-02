@@ -31,7 +31,7 @@ public class TubeGraph {
 
     public final Graph generateGraph() {
 
-        HashMap<Integer, Node> nodes = new HashMap<Integer, Node>();
+        HashMap<Integer, Node> nodes = new HashMap<>();
 
         // ---------------------------------------------------------- create stations
         for (TubeStation station : getTubeStations()) {
@@ -40,7 +40,7 @@ public class TubeGraph {
             nodes.put(stationsID, new Node(station));
         }
 
-        HashMap<Integer, TubeLine> lines = new HashMap<Integer, TubeLine>();
+        HashMap<Integer, TubeLine> lines = new HashMap<>();
 
         // ---------------------------------------------------------- create stations
         for (TubeLine line : getTubeLines()) {
@@ -90,7 +90,7 @@ public class TubeGraph {
         Node oldNode = node1;
 
         for ( Node n : oldNode.getAdjacentNodes().keySet() ) {
-            if ( n.getLine() == line && n.getName()==oldNode.getName()) {
+            if ( n.getLine() == line && n.getName().equals(oldNode.getName())) {
                 return n;
             }
         }

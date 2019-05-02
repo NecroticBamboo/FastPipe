@@ -3,8 +3,8 @@ package uk.co.fastpipe.graph;
 import java.util.*;
 
 public class Graph {
-    private HashMap<String, Node> nameToNode = new HashMap<String, Node>();
-    private HashMap<Integer, Node> idToNode = new HashMap<Integer, Node>();
+    private HashMap<String, Node> nameToNode = new HashMap<>();
+    private HashMap<Integer, Node> idToNode = new HashMap<>();
 
     public void addNode(Node nodeA) {
         nameToNode.put(nodeA.getName(), nodeA);
