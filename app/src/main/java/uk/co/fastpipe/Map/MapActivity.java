@@ -5,7 +5,7 @@ import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.widget.ImageView;
+import android.view.ScaleGestureDetector;
 import uk.co.fastpipe.R;
 
 import java.io.IOException;
@@ -16,6 +16,10 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class MapActivity extends AppCompatActivity {
+
+    private ScaleGestureDetector mScaleGestureDetector;
+    private float mScaleFactor = 1.0f;
+    private TouchImageView mImageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,8 +50,9 @@ public class MapActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Bitmap bmpimg = BitmapFactory.decodeStream(in);
-        ImageView photoView = findViewById(R.id.imageMapView);
-        photoView.setImageBitmap(bmpimg);
+        mImageView = findViewById(R.id.imageMapView);
+        mImageView.setImageBitmap(bmpimg);
+        mImageView.setMaxZoom(15f);
     }
 
 }
