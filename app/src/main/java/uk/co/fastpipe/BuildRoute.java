@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import uk.co.fastpipe.adapters.StationArrayAdapter;
 import uk.co.fastpipe.graph.Graph;
 import uk.co.fastpipe.graph.Node;
 import uk.co.fastpipe.models.TubeGraph;
@@ -38,14 +39,11 @@ public class BuildRoute extends AppCompatActivity {
             TubeGraph tube = TubeReader.load(this);
             Graph g = tube.generateGraph();
 
-            final ArrayList<String> list = new ArrayList<>();
-            final ArrayList<Integer> listColour = new ArrayList<>();
+            final ArrayList<Node> list = new ArrayList<>();
 
             //final LinearLayout listView2 = findViewById(R.id.linearLayout);
             final ListView listView = findViewById(R.id.routeView);
-            final ArrayAdapter<String> adapter = new ArrayAdapter<>(this,
-                    android.R.layout.simple_list_item_1,
-                    list);
+            final ArrayAdapter<Node> adapter = new StationArrayAdapter(this, list);
 
             // find stations by their IDs
             for (int i = 0; i < ids.length; i++) {
@@ -54,10 +52,7 @@ public class BuildRoute extends AppCompatActivity {
 
                 // take station names and add them to the list
                 Node n = g.getNodeById(id);
-                list.add(n.getName());
-
-                //listColour.add(n.getLine().getColor());
-
+                list.add(n);
             }
 
 

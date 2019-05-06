@@ -7,22 +7,25 @@
                   android:layout_width="match_parent"
                   android:layout_height="match_parent"
                   android:weightSum="100">
-    <TextView
-            android:gravity="center"
-            android:textAlignment="center"
-            android:text="TextView1"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:id="@+id/textView1"
-            android:layout_weight="33.3"/>
 
         <TextView
                 android:gravity="center"
-                android:text="TextView2"
+                android:text=""
+                android:layout_width="20dp"
+                android:layout_height="60dp"
+                android:id="@+id/textViewLineColour"
+                android:background="@android:color/holo_red_dark"
+        />
+
+        <TextView
+                android:gravity="center"
+                android:textAlignment="center"
+                android:text="TextView1"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:id="@+id/textView2" android:background="@android:color/holo_red_dark"/>
-
+                android:id="@+id/textViewName"
+                android:background="@android:color/background_light"
+        />
 
     </LinearLayout>
 </android.support.constraint.ConstraintLayout>
