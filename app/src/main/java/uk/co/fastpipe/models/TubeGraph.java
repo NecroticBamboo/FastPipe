@@ -80,30 +80,47 @@ public class TubeGraph {
 
         TubeLine line = lines.get(connection.getLine());
 
+        //check if node is attached to line
         if ( node1.getLine() == null)
         {
+            //if not attach it
             node1.setLine(line);
             return node1;
         }
+        //already attached to the right line
+        if ( node1.getLine() == line)
+            return node1;
+
+        HashMap<Integer,Node> sameStations = new HashMap<>();
+        getSameStation(node1,sameStations);
 
         // this is crossing
-        Node oldNode = node1;
 
-        for ( Node n : oldNode.getAdjacentNodes().keySet() ) {
-            if ( n.getLine() == line && n.getName().equals(oldNode.getName())) {
+
+        //check neighbours if the right station is already created
+        for ( Node n : sameStations.values()) {
+            if ( n.getLine() == line && n.getName().equals(node1.getName())) {
                 return n;
             }
         }
 
-        if ( node1.getLine() == line)
-            return node1;
+        node1 = new Node( node1.getStation());
 
-        node1 = new Node( oldNode.getStation() );
-
-        oldNode.addDestination(node1, 1);
-        node1.addDestination(oldNode, 1);
+        for ( Node n : sameStations.values()) {
+            n.addDestination(node1, 10);
+            node1.addDestination(n, 10);
+        }
 
         node1.setLine(line);
         return node1;
+    }
+
+    private static void getSameStation(Node station, HashMap<Integer,Node> stations){
+        stations.put(station.getLine().getLine(),station);
+        for ( Node n : station.getAdjacentNodes().keySet() ) {
+            if (n.getName().equals(station.getName()) && !stations.containsKey(n.getLine().getLine())) {
+                getSameStation(n,stations);
+            }
+        }
     }
 }
