@@ -168,7 +168,7 @@ public class FastPipeActivity extends AppCompatActivity
      */
     public void onBuildRouteClick(View view) {
         // create the Intent
-        Intent intent = new Intent(this, BuildRoute.class);
+        Intent intent = new Intent(this, RouteMap.class);
         Spinner first = findViewById(R.id.spinnerFirstStation);
         Spinner second = findViewById(R.id.spinnerSecondStation);
 
